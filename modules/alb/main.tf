@@ -4,6 +4,7 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.ecs_lb.id]
   subnets            = var.subnets
+  drop_invalid_header_fields = true
 }
 
 #Dynamically create the alb target groups for app services

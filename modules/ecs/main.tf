@@ -1,5 +1,10 @@
 resource "aws_ecs_cluster" "main" {
   name = "services-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "fargate" {
@@ -8,6 +13,7 @@ resource "aws_cloudwatch_log_group" "fargate" {
 }
 
 // TODO(tobi): Healthcheck
+# TODO(tobi): Acceder al ECR por la red interna
 resource "aws_ecs_task_definition" "main" {
   for_each = var.services
 

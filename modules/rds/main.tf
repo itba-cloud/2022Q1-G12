@@ -29,7 +29,10 @@ resource "aws_db_instance" "primary_db" {
   # Backups are required in order to create a replica
   maintenance_window      = "Mon:00:00-Mon:03:00"
   backup_window           = "03:00-06:00"
-  backup_retention_period = 1
+  backup_retention_period = 5
+
+  storage_encrypted       = true
+  performance_insights_enabled = true
 
   skip_final_snapshot     = true
   apply_immediately       = true
@@ -50,6 +53,8 @@ resource "aws_db_instance" "read_replica" {
   
   # Read Replicas don't backup
   backup_retention_period = 0
+  storage_encrypted       = true
+  performance_insights_enabled = true
 
   skip_final_snapshot     = true
   apply_immediately       = true

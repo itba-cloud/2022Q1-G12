@@ -40,3 +40,9 @@ variable "alb_secret" {
   description = "Secret between ALB and CDN"
   type        = string
 }
+
+variable "waf_arn" {
+  description = "WAF ARN to attach to CDN"
+  type        = string
+}
+

@@ -133,6 +133,10 @@ module "rds" {
   db_port     = local.db_port
 }
 
+module "waf" {
+  source = "./modules/waf"
+}
+
 module "cdn" {
   source = "./modules/cdn"
 
@@ -149,6 +153,8 @@ module "cdn" {
 
   alb_secret_header     = local.alb_cdn_secret_header
   alb_secret            = module.alb_cdn_secret.value
+
+  waf_arn               = module.waf.arn
 }
 
 module "dns" {
