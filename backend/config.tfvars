@@ -1,2 +1,2 @@
-authorized_role   = "LabRole"
-aws_region        = "us-east-1"
+authorized_role = "LabRole"
+aws_region      = "us-east-1"

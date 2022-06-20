@@ -35,12 +35,12 @@ variable "task_role_arn" {
 
 variable "public_alb_target_groups" {
   description = "Target groups of public ALB redirecting to services"
-  type        = map
+  type        = map(any)
 }
 
 variable "internal_alb_target_groups" {
   description = "Target groups of internal ALB fro service communication"
-  type        = map
+  type        = map(any)
 }
 
 variable "environment" {

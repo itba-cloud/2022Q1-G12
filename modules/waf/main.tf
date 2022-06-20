@@ -1,6 +1,6 @@
 resource "aws_wafv2_web_acl" "common" {
-  name        = "common-waf"
-  scope       = "CLOUDFRONT"
+  name  = "common-waf"
+  scope = "CLOUDFRONT"
 
   default_action {
     allow {}

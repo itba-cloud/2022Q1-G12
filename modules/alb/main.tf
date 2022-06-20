@@ -1,9 +1,9 @@
 resource "aws_lb" "main" {
-  name               = var.name
-  internal           = var.internal
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.ecs_lb.id]
-  subnets            = var.subnets
+  name                       = var.name
+  internal                   = var.internal
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.ecs_lb.id]
+  subnets                    = var.subnets
   drop_invalid_header_fields = true
 }
 
@@ -22,10 +22,10 @@ resource "aws_alb_target_group" "services" {
 #   load_balancer_arn = aws_lb.main.id
 #   port              = 80
 #   protocol          = "HTTP"
- 
+
 #   default_action {
 #    type = "redirect"
- 
+
 #    redirect {
 #      port        = 443
 #      protocol    = "HTTPS"
@@ -37,8 +37,8 @@ resource "aws_alb_target_group" "services" {
 resource "aws_alb_listener" "http" {
   load_balancer_arn = aws_lb.main.id
 
-  port      = 80
-  protocol  = "HTTP"
+  port     = 80
+  protocol = "HTTP"
 
   default_action {
     type = "fixed-response"
@@ -60,10 +60,10 @@ resource "aws_alb_listener_rule" "services" {
   listener_arn = aws_alb_listener.http.arn
 
   action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_alb_target_group.services[each.key].arn
   }
-  
+
   condition {
     path_pattern {
       # Solo agregar los dos ultimos valores (los de la api interna) si es internal
@@ -90,10 +90,10 @@ resource "aws_alb_listener_rule" "services" {
 #   load_balancer_arn = aws_lb.main.id
 #   port              = 443
 #   protocol          = "HTTPS"
- 
+
 #   ssl_policy        = "ELBSecurityPolicy-2016-08"
 #   certificate_arn   = var.alb_tls_cert_arn
- 
+
 #   default_action {
 #     target_group_arn = aws_alb_target_group.main.id
 #     type             = "forward"

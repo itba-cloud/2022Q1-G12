@@ -7,7 +7,7 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_eip" "main_natgw" {
   count = var.natgw ? var.zones_count : 0
-  vpc = true
+  vpc   = true
 
   tags = {
     Name = "main_natgw_${count.index}"

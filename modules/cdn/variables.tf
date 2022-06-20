@@ -4,31 +4,31 @@ variable "frontend_OAI" {
 }
 
 variable "frontend_origin_id" {
-  type        = string
+  type = string
 }
 
 variable "frontend_domain_name" {
-  type        = string
+  type = string
 }
 
 variable "api_origin_id" {
-  type        = string
+  type = string
 }
 
 variable "api_domain_name" {
-  type        = string
+  type = string
 }
 
 variable "api_path_pattern" {
-  type        = string
+  type = string
 }
 
 variable "aliases" {
-  type        = set(string)
+  type = set(string)
 }
 
 variable "certificate_arn" {
-  type        = string
+  type = string
 }
 
 variable "alb_secret_header" {

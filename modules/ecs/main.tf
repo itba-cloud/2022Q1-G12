@@ -17,7 +17,7 @@ resource "aws_cloudwatch_log_group" "fargate" {
 resource "aws_ecs_task_definition" "main" {
   for_each = var.services
 
-  family = each.key
+  family                   = each.key
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
@@ -59,13 +59,13 @@ resource "aws_ecs_service" "main" {
   deployment_maximum_percent         = 200
   launch_type                        = "FARGATE"
   scheduling_strategy                = "REPLICA"
-  
+
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
     subnets          = var.app_subnets
     assign_public_ip = false
   }
-  
+
   load_balancer {
     target_group_arn = var.public_alb_target_groups[each.key].arn
     container_name   = "${each.key}-container"
@@ -77,7 +77,7 @@ resource "aws_ecs_service" "main" {
     container_name   = "${each.key}-container"
     container_port   = 80
   }
-  
+
   # Con el autoescalado este valor va a cambiar. No queremos que esto afecte la infraestructura.
   lifecycle {
     ignore_changes = [desired_count]

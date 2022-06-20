@@ -9,8 +9,8 @@ resource "aws_route53_record" "main" {
   type    = "A"
 
   alias {
-    name    = var.cdn.domain_name
-    zone_id = var.cdn.hosted_zone_id
+    name                   = var.cdn.domain_name
+    zone_id                = var.cdn.hosted_zone_id
     evaluate_target_health = false
   }
 }
@@ -21,8 +21,8 @@ resource "aws_route53_record" "www" {
   type    = "A"
 
   alias {
-    name    = aws_route53_record.main.name
-    zone_id = data.aws_route53_zone.main.id
+    name                   = aws_route53_record.main.name
+    zone_id                = data.aws_route53_zone.main.id
     evaluate_target_health = false
   }
 }
@@ -42,8 +42,8 @@ resource "aws_route53_record" "alb" {
   type    = "A"
 
   alias {
-    name    = var.services_alb.dns_name
-    zone_id = var.services_alb.zone_id
+    name                   = var.services_alb.dns_name
+    zone_id                = var.services_alb.zone_id
     evaluate_target_health = false
   }
 }

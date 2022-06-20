@@ -1,11 +1,11 @@
 # TODO(tobi): Logging a S3
 
 data "aws_cloudfront_cache_policy" "disabled" {
-    name = "Managed-CachingDisabled"
+  name = "Managed-CachingDisabled"
 }
 
 data "aws_cloudfront_cache_policy" "optimized" {
-    name = "Managed-CachingOptimized"
+  name = "Managed-CachingOptimized"
 }
 
 resource "aws_cloudfront_distribution" "main" {
@@ -18,21 +18,21 @@ resource "aws_cloudfront_distribution" "main" {
       origin_access_identity = var.frontend_OAI.cloudfront_access_identity_path
     }
   }
-  
+
   origin {
     domain_name = var.api_domain_name
     origin_id   = var.api_origin_id
-    
+
     custom_header {
       name  = var.alb_secret_header
       value = var.alb_secret
     }
 
     custom_origin_config {
-        origin_protocol_policy = "http-only"
-        origin_ssl_protocols = ["TLSv1.2"]
-        https_port = 443
-        http_port = 80
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+      https_port             = 443
+      http_port              = 80
     }
   }
 
@@ -86,9 +86,9 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   viewer_certificate {
-    acm_certificate_arn       = var.certificate_arn
-    minimum_protocol_version  = "TLSv1.2_2021"
-    ssl_support_method        = "sni-only"
+    acm_certificate_arn      = var.certificate_arn
+    minimum_protocol_version = "TLSv1.2_2021"
+    ssl_support_method       = "sni-only"
   }
 
   web_acl_id = var.waf_arn
