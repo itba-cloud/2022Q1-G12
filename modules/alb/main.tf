@@ -7,7 +7,7 @@ resource "aws_lb" "main" {
   drop_invalid_header_fields = true
 }
 
-#Dynamically create the alb target groups for app services
+# Dynamically create the alb target groups for app services
 resource "aws_alb_target_group" "services" {
   for_each = var.services
 

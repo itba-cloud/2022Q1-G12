@@ -1,26 +1,6 @@
 // TODO(tobi): Locking
-
-terraform {
-  required_version = "~> 1.2.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.18.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
 resource "aws_s3_bucket" "state" {
   bucket_prefix = "state"
-}
-
-data "aws_iam_role" "main" {
-  name = var.authorized_role
 }
 
 resource "aws_kms_key" "state" {
@@ -52,27 +32,6 @@ resource "aws_s3_bucket_public_access_block" "state" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-}
-
-data "aws_iam_policy_document" "bucket" {
-  statement {
-    actions   = ["s3:ListBucket"]
-    resources = ["${aws_s3_bucket.state.arn}"]
-
-    principals {
-      type        = "AWS"
-      identifiers = [data.aws_iam_role.main.arn]
-    }
-  }
-  statement {
-    actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
-    resources = ["${aws_s3_bucket.state.arn}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = [data.aws_iam_role.main.arn]
-    }
-  }
 }
 
 resource "aws_s3_bucket_policy" "state" {

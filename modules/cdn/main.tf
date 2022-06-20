@@ -1,13 +1,4 @@
 # TODO(tobi): Logging a S3
-
-data "aws_cloudfront_cache_policy" "disabled" {
-  name = "Managed-CachingDisabled"
-}
-
-data "aws_cloudfront_cache_policy" "optimized" {
-  name = "Managed-CachingOptimized"
-}
-
 resource "aws_cloudfront_distribution" "main" {
 
   origin {

@@ -1,5 +1,3 @@
-# Input variable definitions
-
 variable "cidr_block" {
   description = "CIDR blocknof the VPC."
   type        = string

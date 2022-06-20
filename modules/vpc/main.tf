@@ -10,10 +10,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-
 resource "aws_subnet" "public" {
   count             = var.zones_count
   vpc_id            = aws_vpc.main.id

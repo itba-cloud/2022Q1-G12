@@ -1,7 +1,3 @@
-data "aws_route53_zone" "main" {
-  name = var.app_domain
-}
-
 resource "aws_acm_certificate" "app" {
   domain_name               = var.app_domain
   subject_alternative_names = ["*.${var.app_domain}"]

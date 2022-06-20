@@ -1,4 +1,3 @@
-
 resource "aws_iam_policy" "policy_rds" {
   count = length(var.db_subnets)
 
