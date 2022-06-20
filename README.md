@@ -18,7 +18,7 @@ Instalar [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 ### 2. Amazon Web Services
 
-1. Crear un nuevo usuario para que utilice terraform. Idealmente con permisos `AdministratorAccess` para simplificar manejo de permisos.
+1. Opcionalmente crear un nuevo usuario para que utilice terraform. Idealmente con permisos `AdministratorAccess` para simplificar manejo de permisos.
 2. Crear y guardar access keys de usuario en `$HOME/.aws/credentials`.
 3. Crear una `HostedZone` en `Route53` del dominio elegido para usar por la aplicación. En caso de ser un subdominio, crear en el padre el record NS que apunte a este.
 
