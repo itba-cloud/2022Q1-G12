@@ -27,6 +27,8 @@ resource "aws_security_group" "ecs_tasks" {
     protocol          = "-1"
     from_port         = 0
     to_port           = 0
-    cidr_blocks       = ["0.0.0.0/0"] // Pueden salir a internet
+    # Permitimos a los servicios salir a internet libremente, para hablar por ejemplo con procesadores de pagos.
+    # De todas maneras controlamos la seguridad ingress estrictamente
+    cidr_blocks       = ["0.0.0.0/0"] 
   }
 }

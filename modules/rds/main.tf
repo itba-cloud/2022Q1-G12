@@ -1,3 +1,13 @@
+resource "aws_kms_key" "db" {
+  description             = "db"
+  deletion_window_in_days = 10
+}
+
+resource "aws_kms_alias" "db" {
+  name          = "alias/tf_db_key"
+  target_key_id = aws_kms_key.db.key_id
+}
+
 resource "aws_db_subnet_group" "database" {
   name        = "my-test-database-subnet-group"
   subnet_ids  = var.db_subnets
@@ -32,7 +42,9 @@ resource "aws_db_instance" "primary_db" {
   backup_retention_period = 5
 
   storage_encrypted       = true
+  kms_key_id              = aws_kms_key.db.arn
   performance_insights_enabled = true
+  performance_insights_kms_key_id = aws_kms_key.db.arn
 
   skip_final_snapshot     = true
   apply_immediately       = true
@@ -53,8 +65,11 @@ resource "aws_db_instance" "read_replica" {
   
   # Read Replicas don't backup
   backup_retention_period = 0
+
   storage_encrypted       = true
+  kms_key_id              = aws_kms_key.db.arn
   performance_insights_enabled = true
+  performance_insights_kms_key_id = aws_kms_key.db.arn
 
   skip_final_snapshot     = true
   apply_immediately       = true

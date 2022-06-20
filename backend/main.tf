@@ -26,6 +26,7 @@ data "aws_iam_role" "main" {
 resource "aws_kms_key" "state" {
   description             = "state"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
 resource "aws_kms_alias" "state" {

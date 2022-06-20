@@ -78,6 +78,7 @@ resource "aws_ecs_service" "main" {
     container_port   = 80
   }
   
+  # Con el autoescalado este valor va a cambiar. No queremos que esto afecte la infraestructura.
   lifecycle {
     ignore_changes = [desired_count]
   }

@@ -1,6 +1,7 @@
 resource "aws_kms_key" "logs" {
   description             = "logs"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
 resource "aws_kms_alias" "logs" {
@@ -31,11 +32,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "logs" {
   }
 }
 
-# resource "aws_s3_bucket_public_access_block" "logs" {
-#   bucket = aws_s3_bucket.logs.id
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
-#   block_public_acls       = true
-#   block_public_policy     = true
-#   ignore_public_acls      = true
-#   restrict_public_buckets = true
-# }
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# No tiene sentido loguear los logs. Tampoco tiene mucho sentido versionar creo, pero bueno por las dudas va.
