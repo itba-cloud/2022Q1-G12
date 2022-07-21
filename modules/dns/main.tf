@@ -32,14 +32,27 @@ resource "aws_route53_zone" "private" {
   }
 }
 
-resource "aws_route53_record" "alb" {
+resource "aws_route53_record" "private_aliases" {
+  for_each = { for alias_def in var.private_aliases : alias_def.sub_domain => alias_def }
+
   zone_id = aws_route53_zone.private.zone_id
-  name    = var.services_alb_domain
+  name    = "${each.value.sub_domain}.${aws_route53_zone.private.name}"
   type    = "A"
 
   alias {
-    name                   = var.services_alb.dns_name
-    zone_id                = var.services_alb.zone_id
+    name                   = each.value.domain
+    zone_id                = each.value.zone_id
     evaluate_target_health = false
   }
 }
+
+resource "aws_route53_record" "private_cnames" {
+  for_each = { for alias_def in var.private_cnames : alias_def.sub_domain => alias_def }
+
+  zone_id = aws_route53_zone.private.zone_id
+  name    = "${each.value.sub_domain}.${aws_route53_zone.private.name}"
+  type    = "CNAME"
+  ttl     = "60"
+  records = [each.value.domain]
+}
+

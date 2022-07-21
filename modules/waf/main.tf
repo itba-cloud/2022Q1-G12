@@ -1,5 +1,5 @@
 resource "aws_wafv2_web_acl" "common" {
-  name  = "common-waf"
+  name  = "main-waf"
   scope = "CLOUDFRONT"
 
   default_action {

@@ -19,13 +19,14 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "services_alb" {
-  description = "Internal services ALB"
+variable "private_aliases" {
+  description = "Aliases to declare in the private hosted zone"
+  type        = list(object({sub_domain = string, domain = string, zone_id = string}))
+  default     = []
 }
 
-variable "services_alb_domain" {
-  description = "Domain name for ALB"
-  type        = string
+variable "private_cnames" {
+  description = "Aliases to declare in the private hosted zone using CNAME record type. Use if aws alias is not available"
+  type        = list(object({sub_domain = string, domain = string}))
+  default     = []
 }
-
-
