@@ -37,7 +37,7 @@ def create(create_user: CreateUserReq, db: Session = Depends(get_db)):
     }
 
 @app.get("/api/db/users")
-def get_by_id(db: Session = Depends(get_db)):
+def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
 if __name__ == "__main__":
