@@ -19,3 +19,7 @@ def api_call():
 @app.get("/fastapi")
 def private_home():
     return "FastApi privately says: Hello World!"
+
+@app.get("/api/fastapi/external/ip")
+def private_home():
+    return "Current ip is: " + requests.get("https://ipinfo.io/ip").text

@@ -33,12 +33,6 @@ resource "aws_cloudfront_distribution" "main" {
   default_root_object = "index.html"
   aliases             = var.aliases
 
-  # Configure logging here if required 	
-  # logging_config {
-  #  include_cookies = false
-  #  bucket          = aws_s3_bucket.cdnlogs.id
-  # #  prefix          = "myprefix"
-  # }
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]

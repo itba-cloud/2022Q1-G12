@@ -4,10 +4,6 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = "true" # gives you an internal host name
   enable_classiclink   = "false"
   instance_tenancy     = "default"
-
-  tags = {
-    name = "main"
-  }
 }
 
 resource "aws_subnet" "public" {

@@ -6,7 +6,7 @@ Arquitectura basada en microservicios utilizando ECS completamente desarrollada 
 ## Autores
 
 - [Brandy Tobias](https://github.com/tobiasbrandy)
-- [Legammare Joaquin](https://github.com/JoacoLega)
+- [Legammare Joaquin](https://github.com/JLegammare)
 - [Manfredi Agustin](https://github.com/imanfredi)
 - [Silvatici Gabriel](https://github.com/gsilvatici)
 
@@ -18,7 +18,7 @@ Instalar [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 ### 2. Amazon Web Services
 
-1. Opcionalmente crear un nuevo usuario para que utilice terraform. Idealmente con permisos `AdministratorAccess` para simplificar manejo de permisos.
+1. Crear un nuevo usuario para que utilice terraform. Idealmente con permisos `AdministratorAccess` para simplificar manejo de permisos.
 2. Crear y guardar access keys de usuario en `$HOME/.aws/credentials`.
 3. Crear una `HostedZone` en `Route53` del dominio elegido para usar por la aplicación. En caso de ser un subdominio, crear en el padre el record NS que apunte a este.
 
@@ -50,4 +50,9 @@ El backend es el sistema que tenemos para almacenar el state de terraform genera
 3. Ejecutar `terraform apply -var-file=config.tfvars -auto-approve` para empezar a deployar.
 
 Tener en cuenta que el proceso puede durar varios minutos, y que una vez finalizado puede tomar unos minutos hasta que el sitio se pueda acceder.
+
+## Diagrama de Arquitectura
+
+![Diagrama](https://user-images.githubusercontent.com/58312834/179427886-eedaf028-d508-47ed-abe1-2c982c2166a4.jpeg)
+
 

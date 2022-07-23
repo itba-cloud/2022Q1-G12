@@ -5,7 +5,7 @@ locals {
     }
 
     fastapi = {
-      version = "1.2.1"
+      version = "1.3.0"
     }
 
     fastapi2 = {
@@ -14,6 +14,10 @@ locals {
 
     db = {
       version = "1.0.7"
+    }
+
+    balde = {
+      version = "1.1.0"
     }
   }
 }

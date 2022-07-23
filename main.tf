@@ -100,6 +100,7 @@ module "ecs" {
     { name = "DB_ADDRESS", value = module.rds.db_address },
     { name = "DB_PORT", value = local.db_port },
     { name = "DB_NAME", value = local.db_name },
+    { name = "AWS_BINARIES_BUCKET", value = module.binaries_bucket.id }
   ]
 }
 
@@ -113,6 +114,14 @@ module "rds" {
   db_user    = var.db_user
   db_pass    = var.db_pass
   db_port    = local.db_port
+}
+
+module "binaries_bucket" {
+  source = "./modules/bucket"
+
+  name            = "binaries"
+  iam_role_arn    = data.aws_iam_role.main.arn
+  allowed_actions = ["s3:ListBucket", "s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
 }
 
 module "waf" {
@@ -147,6 +156,12 @@ module "dns" {
 
   internal_vpc_domain = "private.cloud.com"
   vpc_id              = module.vpc.vpc_id
-  services_alb        = module.internal_alb.main
-  services_alb_domain = "services.private.cloud.com"
+
+  private_aliases = [
+    {
+      sub_domain  = "services",
+      domain      = module.internal_alb.main.dns_name,
+      zone_id     = module.internal_alb.main.zone_id,
+    },
+  ]
 }

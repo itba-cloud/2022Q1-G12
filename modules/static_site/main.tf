@@ -22,5 +22,17 @@ resource "aws_s3_bucket_website_configuration" "site" {
   }
 }
 
-# No hace falta encriptar el static sita. Ademas, controlamos el acceso mediante el OAI.
+resource "aws_s3_bucket" "www" {
+  bucket_prefix       = "www"
+  object_lock_enabled = false
+}
+
+resource "aws_s3_bucket_website_configuration" "www" {
+  bucket = aws_s3_bucket.www.id
+
+  redirect_all_requests_to {
+    host_name = aws_s3_bucket.site.id
+  }
+}
+
 # No hace falta loguear por ya (deberiamos) loguear a nivel Cloudfront. Sino se repetirian los accesos.
